@@ -1,0 +1,577 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd" >
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>in.droun</groupId>
+    <artifactId>android-maven-parent</artifactId>
+    <version>0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>android-maven-parent</name>
+
+    <prerequisites>
+        <maven>3.0.5</maven>
+    </prerequisites>
+
+    <properties>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.target.jdk>1.6</project.target.jdk>
+
+        <!-- TODO: Move -->
+        <build.apk.finalName>quickserve</build.apk.finalName>
+
+        <!--
+             Analysis (analyze) Configuration
+        -->
+        <analyze.skip>false</analyze.skip>
+        <analyze.failfast>true</analyze.failfast>
+
+        <!-- PMD -->
+        <aggregate>false</aggregate>
+        <encoding>${project.build.sourceEncoding}</encoding>
+        <linkXRef>true</linkXRef>
+        <minimumTokens>50</minimumTokens>
+        <plugin.pmd.ruleset>${project.parent.basedir}/config/pmd-rulesets.xml</plugin.pmd.ruleset>
+        <pmd.failOnViolation>${analyze.failfast}</pmd.failOnViolation>
+        <pmd.failurePriority>5</pmd.failurePriority>
+        <pmd.printFailingErrors>true</pmd.printFailingErrors>
+        <targetJdk>${project.target.jdk}</targetJdk>
+
+        <!-- checkstyle -->
+        <analyze.checkstyle.configLocation>${project.parent.basedir}/config/checkstyle-rules.xml</analyze.checkstyle.configLocation>
+
+        <!-- FindBugs -->
+        <analyze.findbugs.excludeFilterFile>${project.parent.basedir}/config/findbugs-exclude-filter.xml</analyze.findbugs.excludeFilterFile>
+
+        <!-- Dependency Versions -->
+        <dep.powermock.version>1.5.1</dep.powermock.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Android Packages -->
+            <dependency>
+                <groupId>com.google.android</groupId>
+                <artifactId>android</artifactId>
+                <version>4.1.1.4</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>android.support</groupId>
+                <artifactId>compatibility-v4</artifactId>
+                <version>18</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>android.support</groupId>
+                <artifactId>compatibility-v7-appcompat</artifactId>
+                <version>18</version>
+                <type>apklib</type>
+            </dependency>
+            <dependency>
+                <groupId>android.support</groupId>
+                <artifactId>compatibility-v7-appcompat</artifactId>
+                <version>18</version>
+                <type>jar</type>
+            </dependency>
+
+            <!-- Logging Packages -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>1.7.6-SNAPSHOT</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-android</artifactId>
+                <version>1.7.6-SNAPSHOT</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-nop</artifactId>
+                <version>1.7.6-SNAPSHOT</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.github.tony19</groupId>
+                <artifactId>logback-android-core</artifactId>
+                <version>1.0.10-2</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.github.tony19</groupId>
+                <artifactId>logback-android-classic</artifactId>
+                <version>1.0.10-2</version>
+                <scope>compile</scope>
+            </dependency>
+
+            <!-- Other Packages -->
+            <dependency>
+                <groupId>fi.iki.elonen</groupId>
+                <artifactId>nanohttpd</artifactId>
+                <version>2.0.3</version>
+                <scope>compile</scope>
+            </dependency> 
+
+            <!-- Testing Packages -->
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>  
+                <version>1.9.5</version> 
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.powermock</groupId>
+                <artifactId>powermock-module-junit4</artifactId>
+                <version>${dep.powermock.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.powermock</groupId>
+                <artifactId>powermock-api-mockito</artifactId>
+                <version>${dep.powermock.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.11</version>
+                <scope>test</scope>
+            </dependency> 
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!-- =========================================================
+                - Code Quality Plugins
+                ========================================================== -->
+                <!-- PMD (build.pluginManagement) -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-pmd-plugin</artifactId>
+                    <version>3.0.1</version>
+                    <configuration>
+                        <skip>${analyze.skip}</skip>
+                        <failOnError>${analyze.failfast}</failOnError>
+                        <includeTests>true</includeTests>
+                        <rulesets>
+                            <ruleset>${plugin.pmd.ruleset}</ruleset>
+                        </rulesets>
+                        <excludeRoots>
+                            <excludeRoot>target/generated-sources/r</excludeRoot>
+                        </excludeRoots>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>test-analyse-pmd</id>
+                            <phase>test</phase>
+                            <goals>
+                                <goal>check</goal>
+                                <goal>cpd-check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!-- checkstyle (build.pluginManagement) -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>2.10</version>
+                    <configuration>
+                        <skip>${analyze.skip}</skip>
+                        <failOnError>${analyze.failfast}</failOnError>
+                        <failOnViolation>${analyze.failfast}</failOnViolation>
+                        <configLocation>${analyze.checkstyle.configLocation}</configLocation>
+                        <violationSeverity>info</violationSeverity>
+                        <consoleOutput>true</consoleOutput>
+                        <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                        <!-- TODO: <headerLocation></headerLocation> -->
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>test-analyse-checkstyle</id>
+                            <phase>test</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!-- FindBugs (build.pluginManagement) -->
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>findbugs-maven-plugin</artifactId>
+                    <version>2.5.2</version>
+                    <configuration>
+                        <skip>${analyze.skip}</skip>
+                        <failOnError>${analyze.failfast}</failOnError>
+                        <excludeFilterFile>${analyze.findbugs.excludeFilterFile}</excludeFilterFile>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>test-analyse-findbugs-check</id>
+                            <phase>test</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!-- jacoco (build.pluginManagement) -->
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>0.6.3.201306030806</version>
+                    <configuration>
+                        <skip>${analyze.skip}</skip>
+                        <haltOnFailure>${analyze.failfast}</haltOnFailure>
+                        <rules>
+                            <rule>
+                                <element>CLASS</element>
+                                <excludes>
+                                    <exclude>*Test</exclude>
+                                    <exclude>android.support.v7.appcompat.BuildConfig</exclude>
+                                    <exclude>android.support.v7.appcompat.R</exclude>
+                                    <exclude>android.support.v7.appcompat.R.*</exclude>
+                                </excludes>
+                                <limits>
+                                    <limit>
+                                        <counter>LINE</counter>
+                                        <value>COVEREDRATIO</value>
+                                        <minimum>0.80</minimum>
+                                    </limit>
+                                    <limit>
+                                        <counter>INSTRUCTION</counter>
+                                        <value>COVEREDRATIO</value>
+                                        <minimum>0.80</minimum>
+                                    </limit>
+                                    <limit>
+                                        <counter>CLASS</counter>
+                                        <value>MISSEDCOUNT</value>
+                                        <maximum>0</maximum>
+                                    </limit>
+                                </limits>
+                            </rule>
+                        </rules>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>test-analyse-jacoco-prepare-agent</id>
+                            <goals>
+                                <goal>prepare-agent</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>test-analyse-jacoco-report</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>test-analyse-jacoco-check</id>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!-- JXR (build.pluginManagement) -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jxr-plugin</artifactId>
+                    <version>2.3</version>
+                </plugin>
+
+                <!-- android-maven-plugin (build.pluginManagement) -->
+                <plugin>
+                    <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+                    <artifactId>android-maven-plugin</artifactId>
+                    <version>3.6.1</version>
+                    <extensions>true</extensions>
+                    <configuration>
+                        <sdk>
+                            <platform>16</platform>
+                        </sdk>
+                    </configuration>
+                </plugin>
+
+                <!-- =========================================================
+                - Handy Tool Plugins
+                ========================================================== -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>2.8</version>
+                </plugin>
+
+                <!-- versions-maven-plugin (build.pluginManagement) -->
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>versions-maven-plugin</artifactId>
+                    <version>2.1</version>
+                </plugin>
+
+
+                <!-- =========================================================
+                - Standard Plugins
+                ========================================================== -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>2.5</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.1</version>
+                    <configuration>
+                        <compilerArgs>
+                            <arg>-Xlint</arg>
+                            <arg>-Werror</arg>
+                        </compilerArgs>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>2.7</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>2.5</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>2.4</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>2.6</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.3</version>
+                    <configuration>
+                        <relativizeDecorationLinks>false</relativizeDecorationLinks>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>2.4</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>1.7</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.16</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.4.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.16</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <!-- PMD (build.plugins) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+            </plugin>
+            <!-- checkstyle (build.plugins) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+            <!-- FindBugs (build.plugins) -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+            </plugin>
+            <!-- jacoco (build.plugins) -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>2.7</version>
+            </plugin>
+
+            <!-- =========================================================
+            - Code Quality Reports
+            ========================================================== -->
+            <!-- JXR (reporting.plugins) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>2.3</version>
+            </plugin>
+
+            <!-- PMD (reporting.plugins) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.0.1</version>
+                <configuration>
+                    <includeTests>true</includeTests>
+                    <rulesets>
+                        <ruleset>${plugin.pmd.ruleset}</ruleset>
+                    </rulesets>
+                    <excludeRoots>
+                        <excludeRoot>target/generated-sources/r</excludeRoot>
+                    </excludeRoots>
+                </configuration>
+            </plugin>
+
+            <!-- checkstyle (reporting.plugins) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.10</version>
+                <configuration>
+                    <enableRulesSummary>true</enableRulesSummary>
+                    <configLocation>${analyze.checkstyle.configLocation}</configLocation>
+                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                    <!-- TODO: <headerLocation></headerLocation> -->
+                </configuration>
+            </plugin>
+
+            <!-- FindBugs (reporting.plugins) -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>2.5.2</version>
+                <configuration>
+                    <excludeFilterFile>${analyze.findbugs.excludeFilterFile}</excludeFilterFile>
+                </configuration>
+            </plugin>
+
+            <!-- jacoco (reporting.plugins) -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.6.3.201306030806</version>
+                <!-- TODO: Figure out how to make this work-->
+            </plugin>
+
+            <!-- =========================================================
+            - Other Handy Reports
+            ========================================================== -->
+            <!-- maven-dependency-plugin (reporting.plugins) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.8</version>
+            </plugin>
+
+            <!-- versions-maven-plugin (reporting.plugins) -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.1</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>dependency-updates-report</report>
+                            <report>plugin-updates-report</report>
+                            <report>property-updates-report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+
+        </plugins>
+    </reporting>
+
+    <profiles>
+        <profile>
+            <id>skip-analysis</id>
+            <properties>
+                <analyze.skip>true</analyze.skip>
+                <analyze.failfast>false</analyze.failfast>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration combine.children="override" >
+                            <compilerArgs>
+                                <arg>-Xlint</arg>
+                            </compilerArgs>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>full-analysis</id>
+            <properties>
+                <analyze.skip>false</analyze.skip>
+                <analyze.failfast>false</analyze.failfast>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration combine.children="override" >
+                            <compilerArgs>
+                                <arg>-Xlint</arg>
+                            </compilerArgs>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>

@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<ruleset name="Digital Romin Standard Configuration"
+    xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd" >
+
+    <description>
+The Favorites ruleset contains links to rules that I like to use.  Usually I
+combine this ruleset with the unusedcode.xml, basic.xml, and import.xml
+rulesets for my projects.  This ruleset also serves as an example of how to do
+a custom ruleset.
+    </description>
+
+    <rule ref="rulesets/java/android.xml" />
+    <rule ref="rulesets/java/basic.xml" />
+    <rule ref="rulesets/java/braces.xml" />
+    <rule ref="rulesets/java/clone.xml" />
+    <rule ref="rulesets/java/empty.xml" />
+    <rule ref="rulesets/java/finalizers.xml" />
+    <rule ref="rulesets/java/javabeans.xml" />
+    <rule ref="rulesets/java/logging-jakarta-commons.xml" />
+    <rule ref="rulesets/java/logging-java.xml" />
+    <rule ref="rulesets/java/migrating.xml" />
+    <rule ref="rulesets/java/migrating_to_13.xml" />
+    <rule ref="rulesets/java/migrating_to_14.xml" />
+    <rule ref="rulesets/java/migrating_to_15.xml" />
+    <rule ref="rulesets/java/migrating_to_junit4.xml" />
+    <rule ref="rulesets/java/optimizations.xml" />
+    <rule ref="rulesets/java/strictexception.xml" />
+    <rule ref="rulesets/java/strings.xml" />
+    <rule ref="rulesets/java/sunsecure.xml" />
+    <rule ref="rulesets/java/unnecessary.xml" />
+    <rule ref="rulesets/java/unusedcode.xml" />
+
+    <!-- Ruleset - java/imports -->
+    <rule ref="rulesets/java/imports.xml">
+        <!-- Let checkstyle handle this.  There's a bug in how PMD handles
+             static, and wildcard imports.  http://sourceforge.net/p/pmd/bugs/914/ -->
+        <exclude name="UnusedImports" />
+    </rule>
+
+    <!-- Ruleset - java/naming -->
+    <rule ref="rulesets/java/naming.xml">
+        <exclude name="LongVariable" />
+        <exclude name="MethodNamingConventions" />
+    </rule>
+
+    <!-- Ruleset - java/coupling -->
+    <rule ref="rulesets/java/coupling.xml" >
+        <exclude name="LawOfDemeter" />
+        <!-- TODO: LoosePackageCoupling sounds really handy.  Look into it. -->
+        <exclude name="LoosePackageCoupling" />
+    </rule>
+
+    <!-- Ruleset - java/design -->
+    <rule ref="rulesets/java/design.xml" >
+        <exclude name="ConfusingTernary"/>
+    </rule>
+
+    <!-- Ruleset - java/codesize -->
+    <rule ref="rulesets/java/codesize.xml">
+        <exclude name="TooManyMethods"/>
+    </rule>
+    <rule ref="rulesets/java/codesize.xml/TooManyMethods">
+        <properties>
+            <property name="maxmethods" value="20"/>
+        </properties>
+    </rule>
+
+    <!-- Ruleset - java/controversial -->
+    <rule ref="rulesets/java/controversial.xml">
+        <!-- AvoidFinalLocalVariable is strippingout a very useful tool in bug
+             cheching.  Local final  must be allowed. -->
+        <exclude name="AvoidFinalLocalVariable"/>
+        <exclude name="DataflowAnomalyAnalysis"/>
+        <exclude name="AssignmentInOperand"/>
+        <exclude name="NullAssignment"/>
+    </rule>
+    <rule ref="rulesets/java/controversial.xml/AssignmentInOperand">
+        <properties>
+            <property name="allowIncrementDecrement" value="true"/>
+            <property name="allowWhile" value="true"/>
+        </properties>
+    </rule>
+
+    <!-- Ruleset - java/comments -->
+    <rule ref="rulesets/java/comments.xml">
+        <!-- Leave most comment checking to checkstyle -->
+        <exclude name="CommentSize"/>
+        <exclude name="CommentRequired"/>
+    </rule>
+
+    <rule ref="rulesets/java/junit.xml">
+        <exclude name="JUnitAssertionsShouldIncludeMessage"/>
+    </rule>
+
+</ruleset>
+
