@@ -141,8 +141,6 @@
         <!-- See http://checkstyle.sf.net/config_import.html -->
         <module name="AvoidStarImport">
             <!-- Exception for JUnit/Hamcrest imports -->
-            <property name="excludes" value="org.junit.Assert" />
-            <property name="excludes" value="org.junit.matchers.JUnitMatchers" />
             <property name="excludes" value="org.hamcrest.core.AllOf " />
             <property name="excludes" value="org.hamcrest.core.AnyOf" />
             <property name="excludes" value="org.hamcrest.core.DescribedAs" />
@@ -153,8 +151,10 @@
             <property name="excludes" value="org.hamcrest.core.IsNot" />
             <property name="excludes" value="org.hamcrest.core.IsNull" />
             <property name="excludes" value="org.hamcrest.core.IsSame" />
-            <!-- PowerMock Exception -->
-            <property name="excludes" value="org.powermock.api.mockito.PowerMockito" />
+            <property name="excludes" value="org.junit.Assert" />
+            <property name="excludes" value="org.junit.Assume" />
+            <property name="excludes" value="org.junit.matchers.JUnitMatchers" />
+            <property name="excludes" value="org.mockito.Mockito" />
         </module>
         <module name="IllegalImport"></module> 
         <module name="RedundantImport"></module> 
