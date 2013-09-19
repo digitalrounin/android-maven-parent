@@ -7,7 +7,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>in.droun</groupId>
     <artifactId>android-maven-parent</artifactId>
-    <version>0.0.0</version>
+    <version>0.0.1</version>
     <packaging>pom</packaging>
     <name>android-maven-parent</name>
 
@@ -28,6 +28,9 @@
         -->
         <analyze.skip>false</analyze.skip>
         <analyze.failfast>true</analyze.failfast>
+
+        <!-- Plugins General Configuration -->
+        <plugin.checkstyle.headerLocation>../config/header-java.txt</plugin.checkstyle.headerLocation>
 
         <!-- PMD -->
         <aggregate>false</aggregate>
@@ -193,7 +196,7 @@
                         <violationSeverity>info</violationSeverity>
                         <consoleOutput>true</consoleOutput>
                         <includeTestSourceDirectory>true</includeTestSourceDirectory>
-                        <!-- TODO: <headerLocation></headerLocation> -->
+                        <headerLocation>${plugin.checkstyle.headerLocation}</headerLocation>
                     </configuration>
                     <executions>
                         <execution>
@@ -469,7 +472,7 @@
                     <enableRulesSummary>true</enableRulesSummary>
                     <configLocation>${analyze.checkstyle.configLocation}</configLocation>
                     <includeTestSourceDirectory>true</includeTestSourceDirectory>
-                    <!-- TODO: <headerLocation></headerLocation> -->
+                    <headerLocation>${plugin.checkstyle.headerLocation}</headerLocation>
                 </configuration>
             </plugin>
 
