@@ -29,6 +29,9 @@
         <analyze.skip>false</analyze.skip>
         <analyze.failfast>true</analyze.failfast>
 
+        <!-- Plugins General Configuration -->
+        <plugin.checkstyle.headerLocation>../config/header-java.txt</plugin.checkstyle.headerLocation>
+
         <!-- PMD -->
         <aggregate>false</aggregate>
         <encoding>${project.build.sourceEncoding}</encoding>
@@ -193,7 +196,7 @@
                         <violationSeverity>info</violationSeverity>
                         <consoleOutput>true</consoleOutput>
                         <includeTestSourceDirectory>true</includeTestSourceDirectory>
-                        <!-- TODO: <headerLocation></headerLocation> -->
+                        <headerLocation>${plugin.checkstyle.headerLocation}</headerLocation>
                     </configuration>
                     <executions>
                         <execution>
@@ -469,7 +472,7 @@
                     <enableRulesSummary>true</enableRulesSummary>
                     <configLocation>${analyze.checkstyle.configLocation}</configLocation>
                     <includeTestSourceDirectory>true</includeTestSourceDirectory>
-                    <!-- TODO: <headerLocation></headerLocation> -->
+                    <headerLocation>${plugin.checkstyle.headerLocation}</headerLocation>
                 </configuration>
             </plugin>
 

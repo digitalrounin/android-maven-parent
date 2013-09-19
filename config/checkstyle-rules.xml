@@ -93,6 +93,10 @@
        <property name="message" value="Line has trailing spaces."/>
     </module>
 
+    <module name="RegexpHeader">
+        <property name="headerFile" value="${checkstyle.header.file}"/>
+    </module>
+
     <module name="TreeWalker"> 
         <property name="tabWidth" value="4"></property> 
 
