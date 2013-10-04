@@ -1,8 +1,0 @@
-
-local.prop
-==========
-    Used to set logging levels on android.  Push to /data/local.prop for it to
-    take affect.  Read the following for more information:
-         - http://stackoverflow.com/questions/4126815/android-logging-levels/18556839#18556839
-
-

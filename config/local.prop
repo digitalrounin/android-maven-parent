@@ -1,6 +1,0 @@
-log.tag.qsDispMessageAct=VERBOSE
-log.tag.qsHttpdAct=VERBOSE
-log.tag.qsMainAct=VERBOSE
-log.tag.qsNetHelper=VERBOSE
-log.tag.qsServicesAct=VERBOSE
-log.tag.qsSimpleServ=VERBOSE
