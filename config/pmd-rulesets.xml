@@ -69,6 +69,10 @@ a custom ruleset.
 
     <!-- Ruleset - java/controversial -->
     <rule ref="rulesets/java/controversial.xml">
+        <!-- AvoidLiteralsInIfCondition - This would make checking lengths of
+             things a pain!!! -->
+        <exclude name="AvoidLiteralsInIfCondition"/>
+
         <!-- AvoidFinalLocalVariable is strippingout a very useful tool in bug
              cheching.  Local final  must be allowed. -->
         <exclude name="AvoidFinalLocalVariable"/>
