@@ -20,9 +20,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.target.jdk>1.6</project.target.jdk>
 
-        <!-- TODO: Move -->
-        <build.apk.finalName>quickserve</build.apk.finalName>
-
         <!--
              Analysis (analyze) Configuration
         -->

@@ -3,12 +3,6 @@
          Ingnore Generated Classes
     -->
     <Match>
-        <Class name="~^in\.droun\.quickserve\.R$" />
-    </Match>
-    <Match>
-        <Class name="~^in\.droun\.quickserve\.R\$.*" />
-    </Match>
-    <Match>
         <Class name="~^android\.support\.v7\.appcompat\.R\$.*"/>
     </Match>
 </FindBugsFilter>
