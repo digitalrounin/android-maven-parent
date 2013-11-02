@@ -82,25 +82,25 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>1.7.6-SNAPSHOT</version>
+                <version>1.7.5</version>
                 <scope>compile</scope>
             </dependency>
             <dependency>
-                <groupId>org.slf4j</groupId>
+                <groupId>eu.lp0.slf4j</groupId>
                 <artifactId>slf4j-android</artifactId>
-                <version>1.7.6-SNAPSHOT</version>
+                <version>1.7.5-7</version>
                 <scope>compile</scope>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-nop</artifactId>
-                <version>1.7.6-SNAPSHOT</version>
+                <version>1.7.5</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-simple</artifactId>
-                <version>1.7.6-SNAPSHOT</version>
+                <version>1.7.5</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
